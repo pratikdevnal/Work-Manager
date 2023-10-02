@@ -7,7 +7,7 @@ import { currentUser } from "@/services/userService";
 import { connectDb } from "@/helper/db";
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -17,7 +17,7 @@ const UserProvider = ({ children }) => {
       } catch (error) {
         console.log(error);
         // toast.error("error in loading current  user");
-        setUser(undefined);
+        setUser(null);
       }
     }
     load();
