@@ -26,36 +26,27 @@ import { connectDb } from "@/helper/db";
 connectDb();
 
 export async function GET(request) {
-  try {
-    const authToken = request.cookies.get("authToken")?.value;
-    console.log("authToken:", authToken);
+  const authToken = request.cookies.get("authToken")?.value;
+  console.log("authToken:", authToken);
 
-    if (!authToken) {
-      // If there's no authToken, return an error response
-      return NextResponse.error("Authentication token is missing", 401);
-    }
-
-    // Verify the JWT token
-    const data = jwt.verify(authToken, process.env.JWT_KEY);
-
-    console.log("Decoded JWT data:", data);
-
-    // Fetch user data from the database
-    const user = await User.findById(data._id).select("-password");
-
-    if (!user) {
-      // If the user doesn't exist, return an error response
-      return NextResponse.error("User not found", 404);
-    }
-
-    // Return the user data as a JSON response
-    return NextResponse.json(user);
-  } catch (error) {
-    // Handle any errors that occur during the process
-    console.error("Error:", error.message);
-    return NextResponse.error(
-      "An error occurred while processing the request",
-      500
-    );
+  if (!authToken) {
+    // If there's no authToken, return an error response
+    return NextResponse.error("Authentication token is missing", 401);
   }
+
+  // Verify the JWT token
+  const data = jwt.verify(authToken, process.env.JWT_KEY);
+
+  console.log("Decoded JWT data:", data);
+
+  // Fetch user data from the database
+  const user = await User.findById(data._id).select("-password");
+
+  if (!user) {
+    // If the user doesn't exist, return an error response
+    return NextResponse.error("User not found", 404);
+  }
+
+  // Return the user data as a JSON response
+  return NextResponse.json(user);
 }
