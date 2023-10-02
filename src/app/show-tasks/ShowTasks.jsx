@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import { deleteTask } from "@/services/taskService";
 
-connectDb();
+// connectDb();
 const ShowTasks = () => {
   const [tasks, setTasks] = useState([]);
   const context = useContext(UserContext);
@@ -16,10 +16,7 @@ const ShowTasks = () => {
     try {
       const tasks = await getTasksOfUser(userId);
       setTasks([...tasks].reverse());
-      console.log(tasks);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
   useEffect(() => {
     if (context.user) {
@@ -30,7 +27,6 @@ const ShowTasks = () => {
   async function deleteTaskParent(taskId) {
     try {
       const result = deleteTask(taskId);
-      console.log(result);
       const newTasks = tasks.filter((item) => item._id != taskId);
       setTasks(newTasks);
       toast.success("task is deleted");

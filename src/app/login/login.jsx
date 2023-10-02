@@ -29,7 +29,6 @@ const Login = () => {
 
     try {
       const result = await login(loginData);
-      console.log(result);
       toast.success("logged in", {
         position: "top-center",
       });
@@ -37,7 +36,6 @@ const Login = () => {
       //redirect to home page after login
       router.push("/show-tasks");
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, {
         position: "top-center",
       });
