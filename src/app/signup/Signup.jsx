@@ -186,7 +186,6 @@ const Signup = () => {
                 Clear
               </button>
             </div>
-            <div>{JSON.stringify(data)}</div>
           </form>
         </div>
       </div>
